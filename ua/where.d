@@ -8,6 +8,7 @@ module ua.where;
 import std.stdio;
 import std.traits;
 import std.string;
+import std.algorithm;
 import std.conv;
 import std.typecons;
 import std.format;
@@ -28,30 +29,54 @@ struct Where {
 	string value;
 }
 
-/*Where where(T, string member, Op op, long value)() {
-	Where ret;
-	ret.t = getNameOf!T;
-	ret.member = member;
-	ret.op = op;
-	ret.value = to!string(value);
-	return ret;
-}*/
+@safe unittest {
+	alias TypeTuple!(char, byte, short, int, long,
+		ubyte, ushort, uint, ulong, float, double, real, 
+		string, wstring, dstring) UATypes;
 
-unittest {
 	struct Foo {
 		int a;
 	}
 
-	auto w = where!(Foo, "a", Op.EQ, 10);
-	w = where!(Foo, "a", Op.EQ, true);
+	foreach(it; UATypes) {
+		auto w = where!(Foo, "a", Op.EQ, to!it(10));
+		assert(w.t == "Foo");
+		assert(w.member == "a");
+		assert(w.op == Op.EQ);
+		assert(w.value.countUntil("10") != -1);
+
+		w = where!(Foo, "a", Op.EQ)(to!it(10));
+		assert(w.t == "Foo");
+		assert(w.member == "a");
+		assert(w.op == Op.EQ);
+		if(!is(it == char) && !is(it == wchar) && !is(it == dchar)) {
+			assert(w.value.countUntil("10") != -1, 
+				"\"%s\" %s".format(w.value, it.stringof));
+		} else {
+			assert(w.value == "\n",
+				"\"%s\" %s".format(w.value, it.stringof));
+		}
+
+		foreach(jt; [Op.EQ, Op.LE, Op.GE, Op.NEQ]) {
+			w = where!(Foo, "a")(to!it(10), jt);
+			assert(w.t == "Foo");
+			assert(w.member == "a");
+			assert(w.op == jt);
+			if(!is(it == char) && !is(it == wchar) && !is(it == dchar)) {
+				assert(w.value.countUntil("10") != -1, 
+					"\"%s\" %s".format(w.value, it.stringof));
+			} else {
+				assert(w.value == "\n",
+					"\"%s\" %s".format(w.value, it.stringof));
+			}
+		}
+	}
+	auto w = where!(Foo, "a", Op.EQ, true);
 }
 
-alias TypeTuple!(bool, char, byte, short, int, long,
-	ubyte, ushort, uint, ulong, float, double, real, 
-	string, wstring, dstring) UATypes;
 
-immutable whereFuncTempAll = q{
-	Where where(T, string member, Op op, %s value)() pure @safe {
+private immutable whereFuncTempAll = q{
+	Where where(T, string member, Op op, %s value)() @trusted {
 		Where ret;
 		ret.t = getNameOf!T;
 		ret.member = member;
@@ -61,8 +86,8 @@ immutable whereFuncTempAll = q{
 	}
 };
 
-immutable whereFuncTempValue = q{
-	Where where(T, string member, Op op, S)(S value) pure @safe {
+private immutable whereFuncTempValue = q{
+	Where where(T, string member, Op op, S)(S value) @trusted {
 		Where ret;
 		ret.t = getNameOf!T;
 		ret.member = member;
@@ -72,8 +97,8 @@ immutable whereFuncTempValue = q{
 	}
 };
 
-immutable whereFuncTempOp = q{
-	Where where(T, string member, %s value)(Op op) pure @safe {
+private immutable whereFuncTempOp = q{
+	Where where(T, string member, %s value)(Op op) @trusted {
 		Where ret;
 		ret.t = getNameOf!T;
 		ret.member = member;
@@ -83,8 +108,8 @@ immutable whereFuncTempOp = q{
 	}
 };
 
-immutable whereFuncTempValueOp = q{
-	Where where(T, string member, S)(S value, Op op) pure @safe {
+private immutable whereFuncTempValueOp = q{
+	Where where(T, string member, S)(S value, Op op) @trusted {
 		Where ret;
 		ret.t = getNameOf!T;
 		ret.member = member;
@@ -112,5 +137,5 @@ private string getWhereFunctions() pure @safe nothrow {
 	return ret;
 }
 
-pragma(msg, getWhereFunctions());
+//pragma(msg, getWhereFunctions());
 mixin(getWhereFunctions());
