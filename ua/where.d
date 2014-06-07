@@ -58,7 +58,7 @@ struct Where {
 		}
 
 		foreach(jt; [Op.EQ, Op.LE, Op.GE, Op.NEQ]) {
-			w = where!(Foo, "a")(to!it(10), jt);
+			w = where!(Foo, "a")(jt, to!it(10));
 			assert(w.t == "Foo");
 			assert(w.member == "a");
 			assert(w.op == jt);
@@ -109,7 +109,7 @@ private immutable whereFuncTempOp = q{
 };
 
 private immutable whereFuncTempValueOp = q{
-	Where where(T, string member, S)(S value, Op op) @trusted {
+	Where where(T, string member, S)(Op op, S value) @trusted {
 		Where ret;
 		ret.t = getNameOf!T;
 		ret.member = member;

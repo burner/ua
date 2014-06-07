@@ -16,6 +16,7 @@ set(src
 	ua/options.d
 	ua/uda.d
 	ua/where.d
+	ua/mysql.d
 	ua/util/eightylineformat.d
 	ua/util/type.d
 )
