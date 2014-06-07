@@ -79,12 +79,12 @@ UA getUA(T)() {
 
 unittest {
 	UA u = getUA!SomeCrazyNameYouShouldNeverWrite();
+	assert(u.rename == "AName");
 }
 
 UA getUA(T, string member)() {
 	static assert(isUA!(T, member));
 
-	pragma(msg, __traits(getAttributes, __traits(getMember, T, member)));
 	foreach(it; __traits(getAttributes, __traits(getMember, T, member))) {
 		if(is(typeof(it) == UA)) {
 			UA ret;
