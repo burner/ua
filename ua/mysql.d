@@ -1,5 +1,7 @@
 module ua.mysql;
 
+import ua.uda;
+
 struct MySQLRsltType(T) {
 	T front() @trusted {
 		T ret;
@@ -20,7 +22,7 @@ struct MySQL {
 		return ret;
 	}
 
-	MySQLRsltType!T select(T, Args...)(Args args) {
+	MySQLRsltType!T select(T, Args...)(Args args) if(isUA!T) {
 		MySQLRsltType!T ret;
 		return ret;
 	}

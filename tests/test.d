@@ -1,10 +1,12 @@
-import ua.where;
-import ua.util.type;
-import ua.util.eightylineformat;
 import ua.ctfetrie;
+import ua.groupby;
+import ua.mysql;
+import ua.operator;
 import ua.options;
 import ua.uda;
-import ua.mysql;
+import ua.util.eightylineformat;
+import ua.util.type;
+import ua.where;
 
 void main() {
 	struct Foo {
@@ -20,6 +22,8 @@ void main() {
 	Where[] wheres;
 	wheres ~= w1;
 	wheres ~= w2;
+
+	auto g1 = GroupBy("a");
 
 	foreach(it; db.select!Foo(w1, w2)) {
 	}

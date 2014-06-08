@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.1)
 
 project(ua D)
-SET(GLOBAL_DMD_DEFS "-w -unittest -debug")
+SET(GLOBAL_DMD_DEFS "-w -unittest -debug -cov")
 set(CMAKE_D_COMPILER dmd)
 
 SET(CMAKE_D_FLAGS "${CMAKE_D_FLAGS} ${GLOBAL_DMD_DEFS}" )
@@ -15,7 +15,11 @@ set(src
 	ua/ctfetrie.d
 	ua/options.d
 	ua/uda.d
+	ua/groupby.d
+	ua/operator.d
+	ua/having.d
 	ua/where.d
+	ua/wherehavingimpl.d
 	ua/mysql.d
 	ua/util/eightylineformat.d
 	ua/util/type.d

@@ -1,4 +1,4 @@
-module ua.where;
+module ua.having;
 
 import std.conv;
 
@@ -6,15 +6,15 @@ import ua.wherehavingimpl;
 import ua.operator;
 import ua.util.type;
 
-struct Where {
+struct Having {
 	string t;
 	string member;
 	Op op;
 	string value;
 }
 
-mixin(getHavingWhereFunctions!("where", "Where")());
+mixin(getHavingWhereFunctions!("having", "Having")());
 
 unittest {
-	mixin(getWhereUnittestString());
+	mixin(getHavingUnittestString());
 }
