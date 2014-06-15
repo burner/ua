@@ -2,6 +2,9 @@ module ua.uda;
 
 import std.conv;
 import std.traits;
+import std.string;
+import std.array;
+import std.traits;
 
 import ua.options;
 import ua.util.type;
@@ -58,6 +61,17 @@ version(unittest) {
 
 		private int fun_;
 	}
+
+	@UA struct SomeCrazyNameYouShouldNeverWrite1 {
+		@UA int a;
+		@NoUA float b;
+		@UA("foo") string c;
+
+		@UA(PrimaryKey) @property int fun() { return fun_; }
+		@UA(PrimaryKey) @property void fun(int f) { fun_ = f; }
+
+		private int fun_;
+	}
 }
 
 UA getUA(T)() {
@@ -84,6 +98,7 @@ unittest {
 
 UA getUA(T, string member)() {
 	static assert(isUA!(T, member));
+	pragma(msg, T.sizeof);
 
 	foreach(it; __traits(getAttributes, __traits(getMember, T, member))) {
 		if(is(typeof(it) == UA)) {
@@ -154,4 +169,26 @@ bool isNotUA(T, string member)() {
 unittest {
 	static assert(isUA!(SomeCrazyNameYouShouldNeverWrite,"a"));
 	static assert(!isNotUA!(SomeCrazyNameYouShouldNeverWrite,"a"));
+}
+
+string getName(T)() if(isUA!T) {
+	UA ua = getUA!T();
+	
+	if(!ua.rename.empty()) {
+		return ua.rename;
+	} else {
+		string s = fullyQualifiedName!T;	
+		auto idx = s.lastIndexOf('.') + 1;
+		return s[idx .. $];
+	}
+}
+
+unittest {
+	static assert(getName!SomeCrazyNameYouShouldNeverWrite() == "AName",
+		getName!SomeCrazyNameYouShouldNeverWrite()
+	);
+	static assert(getName!SomeCrazyNameYouShouldNeverWrite1() == 
+		"SomeCrazyNameYouShouldNeverWrite1",
+		getName!SomeCrazyNameYouShouldNeverWrite1()
+	);
 }

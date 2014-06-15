@@ -7,9 +7,10 @@ import ua.uda;
 import ua.util.eightylineformat;
 import ua.util.type;
 import ua.where;
+import ua.tablegen1;
 
 void main() {
-	struct Foo {
+	@UA struct Foo {
 		@UA string a;
 		@UA("someothername") int b;
 	}
@@ -30,4 +31,6 @@ void main() {
 
 	foreach(it; db.select!Foo(wheres)) {
 	}
+
+	string ct1 = genCreateTable1!Foo;
 }
