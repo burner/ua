@@ -52,7 +52,7 @@ enum {
 
 version(unittest) {
 	@UA("AName") struct SomeCrazyNameYouShouldNeverWrite {
-		@UA int a;
+		@UA() int a;
 		@NoUA float b;
 		@UA("foo") string c;
 
@@ -62,8 +62,8 @@ version(unittest) {
 		private int fun_;
 	}
 
-	@UA struct SomeCrazyNameYouShouldNeverWrite1 {
-		@UA int a;
+	@UA() struct SomeCrazyNameYouShouldNeverWrite1 {
+		@UA() int a;
 		@NoUA float b;
 		@UA("foo") string c;
 
@@ -74,9 +74,15 @@ version(unittest) {
 	}
 }
 
+template UDATuple (T...)
+{
+    alias Tuple = T;
+}
+
 UA getUA(T)() {
 	static assert(isUA!(T));
 
+	//pragma(msg, __LINE__, " ", __traits(getAttributes, T));
 	foreach(it; __traits(getAttributes, T)) {
 		if(is(typeof(it) == UA)) {
 			UA ret;
@@ -98,8 +104,8 @@ unittest {
 
 UA getUA(T, string member)() {
 	static assert(isUA!(T, member));
-	pragma(msg, T.sizeof);
 
+	//pragma(msg, __LINE__, " ", __traits(getAttributes, __traits(getMember, T, member)));
 	foreach(it; __traits(getAttributes, __traits(getMember, T, member))) {
 		if(is(typeof(it) == UA)) {
 			UA ret;

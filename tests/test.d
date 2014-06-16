@@ -10,8 +10,8 @@ import ua.where;
 import ua.tablegen1;
 
 void main() {
-	@UA struct Foo {
-		@UA string a;
+	@UA() struct Foo {
+		@UA() string a;
 		@UA("someothername") int b;
 	}
 
