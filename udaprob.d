@@ -15,15 +15,15 @@
     }
     
     A getA(T)() {
+    	A ret;
     	foreach(it; __traits(getAttributes, T)) {
-    		if(is(typeof(it) == A)) {
-    			A ret;
+    		static if(is(typeof(it) == A)) {
     			ret.value = it.value;
-    			return ret;
+				break;
     		}
     	}
-    
-    	assert(false);
+
+    	return ret;
     }
     
     unittest {

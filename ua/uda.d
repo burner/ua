@@ -52,7 +52,7 @@ enum {
 
 version(unittest) {
 	@UA("AName") struct SomeCrazyNameYouShouldNeverWrite {
-		@UA() int a;
+		@UA int a;
 		@NoUA float b;
 		@UA("foo") string c;
 
@@ -62,8 +62,8 @@ version(unittest) {
 		private int fun_;
 	}
 
-	@UA() struct SomeCrazyNameYouShouldNeverWrite1 {
-		@UA() int a;
+	@UA struct SomeCrazyNameYouShouldNeverWrite1 {
+		@UA int a;
 		@NoUA float b;
 		@UA("foo") string c;
 
@@ -82,19 +82,18 @@ template UDATuple (T...)
 UA getUA(T)() {
 	static assert(isUA!(T));
 
+	UA ret;
+
 	//pragma(msg, __LINE__, " ", __traits(getAttributes, T));
 	foreach(it; __traits(getAttributes, T)) {
-		if(is(typeof(it) == UA)) {
-			UA ret;
+		static if(is(typeof(it) == UA)) {
 			ret.rename = it.rename;
 			ret.isPrimaryKey = it.isPrimaryKey;
 			ret.isNotNull = it.isNotNull;
-
-			return ret;
+			break;
 		}
 	}
-
-	assert(false);
+	return ret;
 }
 
 unittest {
@@ -105,19 +104,18 @@ unittest {
 UA getUA(T, string member)() {
 	static assert(isUA!(T, member));
 
+	UA ret;
 	//pragma(msg, __LINE__, " ", __traits(getAttributes, __traits(getMember, T, member)));
 	foreach(it; __traits(getAttributes, __traits(getMember, T, member))) {
-		if(is(typeof(it) == UA)) {
-			UA ret;
+		static if(is(typeof(it) == UA)) {
 			ret.rename = it.rename;
 			ret.isPrimaryKey = it.isPrimaryKey;
 			ret.isNotNull = it.isNotNull;
-
-			return ret;
+			break;
 		}
 	}
 
-	assert(false);
+	return ret;
 }
 
 unittest {
