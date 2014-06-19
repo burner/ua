@@ -4,7 +4,7 @@ import std.conv;
 
 import ua.wherehavingimpl;
 import ua.operator;
-import ua.util.type;
+import ua.types;
 
 struct Where {
 	string t;

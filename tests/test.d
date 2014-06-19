@@ -1,3 +1,5 @@
+import std.stdio;
+
 import ua.ctfetrie;
 import ua.groupby;
 import ua.mysql;
@@ -5,13 +7,13 @@ import ua.operator;
 import ua.options;
 import ua.uda;
 import ua.util.eightylineformat;
-import ua.util.type;
+import ua.types;
 import ua.where;
 import ua.tablegen1;
 
 void main() {
 	@UA struct Foo {
-		@UA() string a;
+		@UA string a;
 		@UA("someothername") int b;
 	}
 
@@ -33,4 +35,5 @@ void main() {
 	}
 
 	string ct1 = genCreateTable1!Foo;
+	writeln(ct1);
 }

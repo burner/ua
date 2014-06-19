@@ -21,9 +21,9 @@ set(src
 	ua/where.d
 	ua/wherehavingimpl.d
 	ua/mysql.d
+	ua/types.d
 	ua/tablegen1.d
 	ua/util/eightylineformat.d
-	ua/util/type.d
 )
 
 set(tests

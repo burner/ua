@@ -13,7 +13,7 @@ import std.conv;
 import std.typecons;
 import std.format;
 
-import ua.util.type;
+import ua.types;
 		/*foreach(jt; [Op.EQ, Op.LE, Op.GE, Op.NEQ]) {
 			w = %s!(Foo, "a")(jt, to!it(10));
 			assert(w.t == "Foo");

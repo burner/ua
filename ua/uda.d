@@ -7,7 +7,7 @@ import std.array;
 import std.traits;
 
 import ua.options;
-import ua.util.type;
+import ua.types;
 
 private void buildUARecursive(Args...)(ref UA ua, Args args) {
 	static if(args.length > 0) {
