@@ -19,12 +19,14 @@ private void buildUARecursive(Args...)(ref UA ua, Args args) {
 				ua.isPrimaryKey = true;
 			} else if(args[0] == NotNull) {
 				ua.isNotNull = true;
+			} else {
+				assert(false, "Unexpected value \"" ~ to!string(args[0]) ~ '"');
 			}
 		}
 	}
 
 	static if(args.length > 1) {
-		buildUARecursive(ua, args);
+		buildUARecursive(ua, args[1 .. $]);
 	}
 }
 
@@ -93,6 +95,11 @@ UA getUA(T)() {
 			break;
 		}
 	}
+
+	if(ret.rename.empty()) {
+		ret.rename = getNameOf!T();
+	}
+
 	return ret;
 }
 
@@ -113,6 +120,10 @@ UA getUA(T, string member)() {
 			ret.isNotNull = it.isNotNull;
 			break;
 		}
+	}
+
+	if(ret.rename.empty()) {
+		ret.rename = member;
 	}
 
 	return ret;

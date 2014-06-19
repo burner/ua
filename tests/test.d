@@ -14,7 +14,7 @@ import ua.tablegen1;
 void main() {
 	@UA struct Foo {
 		@UA string a;
-		@UA("someothername") int b;
+		@UA(PrimaryKey, "someothername") int b;
 	}
 
 	auto db = MySQL();
@@ -34,6 +34,6 @@ void main() {
 	foreach(it; db.select!Foo(wheres)) {
 	}
 
-	string ct1 = genCreateTable1!Foo;
+	string ct1 = genCreateTable1!(Foo, mysqlType)();
 	writeln(ct1);
 }
