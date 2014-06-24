@@ -1,12 +1,11 @@
 module ua.tablegen1;
 
-import std.array : empty;
-
 import ua.uda;
 
 // MySQL / SQL Server / Oracle / MS Access:
 string genCreateTable1(T, alias TypeGen)() if(isUA!T) {
-	static assert(isUA!T());
+	import std.array : empty;
+
 	string[string] namesInUse;
 
 	UA[] pks;
@@ -44,7 +43,7 @@ string genCreateTable1(T, alias TypeGen)() if(isUA!T) {
 		}
 		ret ~= ")";
 	}
-	ret ~= ")";
+	ret ~= ");";
 
 	return ret;
 }

@@ -10,6 +10,7 @@ import ua.util.eightylineformat;
 import ua.types;
 import ua.where;
 import ua.tablegen1;
+import ua.insertgen1;
 
 void main() {
 	@UA struct Foo {
@@ -34,6 +35,9 @@ void main() {
 	foreach(it; db.select!Foo(wheres)) {
 	}
 
-	string ct1 = genCreateTable1!(Foo, mysqlType)();
+	enum ct1 = genCreateTable1!(Foo, mysqlType)();
 	writeln(ct1);
+
+	enum i = genInsert1!(Foo)();
+	writeln(i);
 }

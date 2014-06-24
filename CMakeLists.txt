@@ -23,6 +23,7 @@ set(src
 	ua/mysql.d
 	ua/types.d
 	ua/tablegen1.d
+	ua/insertgen1.d
 	ua/util/eightylineformat.d
 )
 
