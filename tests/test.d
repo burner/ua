@@ -1,8 +1,11 @@
 import std.stdio;
 
+import std.array;
+import std.conv;
 import ua.ctfetrie;
 import ua.groupby;
 import ua.mysql;
+import ua.postgresql;
 import ua.operator;
 import ua.options;
 import ua.uda;
@@ -10,6 +13,7 @@ import ua.util.eightylineformat;
 import ua.types;
 import ua.where;
 import ua.tablegen1;
+import ua.caller;
 import ua.insertgen1;
 
 void main() {
@@ -38,6 +42,8 @@ void main() {
 	enum ct1 = genCreateTable1!(Foo, mysqlType)();
 	writeln(ct1);
 
-	enum i = genInsert1!(Foo)();
+	enum i = genInsert1!(Foo,MySQLPlaceholderGen)();
 	writeln(i);
+	enum i2 = genInsert1!(Foo,PostgreSQLPlaceholderGen)();
+	writeln(i2);
 }

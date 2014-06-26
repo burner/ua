@@ -2,11 +2,15 @@ module ua.insertgen1;
 
 import ua.uda;
 
-string genInsert1(T)() if(isUA!T) {
+string genInsert1(T,P)() nothrow @trusted if(isUA!T) {
 	import std.algorithm : filter, joiner, iota, map;
 	import std.stdio : writeln;
-	import std.conv : to;
+	import std.conv : ConvException, to;
 	import std.range : repeat, take;
+
+	import ua.caller;
+
+	P placeholdGen;
 
 	string[string] namesInUse;
 
@@ -29,9 +33,12 @@ string genInsert1(T)() if(isUA!T) {
 	}
 
 	ret ~= ") VALUES(";
-
-	ret ~= repeat("?").take(cnt).joiner(",").to!string;
-
+	try {
+		ret ~= placeholdGen.take(cnt)
+			.joiner(",").to!string;
+	} catch(Exception e) {
+		assert(false, e.toString());
+	}
 	ret ~= ");";
 
 	return ret;

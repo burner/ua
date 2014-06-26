@@ -27,3 +27,11 @@ struct MySQL {
 		return ret;
 	}
 }
+
+struct MySQLPlaceholderGen {
+	@property string front() pure @safe nothrow { return "?"; }
+
+	bool empty = false;
+
+	void popFront() pure @safe nothrow {}
+}

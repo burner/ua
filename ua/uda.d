@@ -9,7 +9,7 @@ import std.traits;
 import ua.options;
 import ua.types;
 
-private void buildUARecursive(Args...)(ref UA ua, Args args) {
+private pure void buildUARecursive(Args...)(ref UA ua, Args args) {
 	static if(args.length > 0) {
 		//auto v = args[0];
 		static if(isSomeString!(typeof(args[0]))) {
@@ -35,7 +35,7 @@ used in UniformAccess, the UA attribute makes the usage more verbose and
 allows to provide additional options.
 */
 struct UA {
-	static UA opCall(T...)(T args) {
+	pure static UA opCall(T...)(T args) {
 		UA ret;
 		buildUARecursive(ret, args);
 		return ret;
@@ -81,7 +81,7 @@ template UDATuple (T...)
     alias Tuple = T;
 }
 
-UA getUA(T)() {
+pure UA getUA(T)() {
 	static assert(isUA!(T));
 
 	UA ret;
@@ -160,11 +160,11 @@ bool isUAImpl(T, string member)() {
 	return true;
 }
 
-bool isUA(T)() {
+pure bool isUA(T)() {
 	return isUAImpl!(T)();
 }
 
-bool isNotUA(T)() {
+pure bool isNotUA(T)() {
 	return !isUAImpl!(T)();
 }
 
@@ -186,15 +186,19 @@ unittest {
 	static assert(!isNotUA!(SomeCrazyNameYouShouldNeverWrite,"a"));
 }
 
-string getName(T)() if(isUA!T) {
+string getName(T)() nothrow @trusted if(isUA!T) {
 	UA ua = getUA!T();
 	
 	if(!ua.rename.empty()) {
 		return ua.rename;
 	} else {
 		string s = fullyQualifiedName!T;	
-		auto idx = s.lastIndexOf('.') + 1;
-		return s[idx .. $];
+		try {
+			auto idx = s.lastIndexOf('.') + 1;
+			return s[idx .. $];
+		} catch(Exception e) {
+			assert(false, e.toString());
+		}
 	}
 }
 

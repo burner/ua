@@ -21,9 +21,11 @@ set(src
 	ua/where.d
 	ua/wherehavingimpl.d
 	ua/mysql.d
+	ua/postgresql.d
 	ua/types.d
 	ua/tablegen1.d
 	ua/insertgen1.d
+	ua/caller.d
 	ua/util/eightylineformat.d
 )
 
@@ -31,7 +33,7 @@ set(tests
 	tests/test.d
 )
 
-add_library(ua ${src})
+add_library(ua STATIC ${src})
 
 add_executable(uatest ${tests})
-target_link_libraries(uatest sqlite3 ua)
+target_link_libraries(uatest ua)
