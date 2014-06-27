@@ -1,0 +1,13 @@
+{
+		"name": "test",
+		"description": "uatest",
+		"authors": ["Robert Burner Schadek"],
+		"homepage": "github.com/burner/ua",
+		"license": "GPL-3.0",
+		"dependencies": {
+		},
+		"sourceFiles" : ["test.d"],
+		"importPaths" : ["../ua/",".."],
+		"targetType": "executable",
+		"lflags" : ["../libuniformaccess.a"]
+}

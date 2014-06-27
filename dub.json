@@ -1,0 +1,11 @@
+{
+		"name": "uniformaccess",
+		"description": "Finally a nice Database abstraction",
+		"authors": ["Robert Burner Schadek"],
+		"homepage": "github.com/burner/ua",
+		"license": "LGPL-3.0",
+		"dependencies": {
+		},
+		"sourcePaths" : ["ua"],
+		"targetType": "library"
+}

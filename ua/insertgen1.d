@@ -8,8 +8,6 @@ string genInsert1(T,P)() nothrow @trusted if(isUA!T) {
 	import std.conv : ConvException, to;
 	import std.range : repeat, take;
 
-	import ua.caller;
-
 	P placeholdGen;
 
 	string[string] namesInUse;

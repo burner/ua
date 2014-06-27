@@ -13,7 +13,6 @@ import ua.util.eightylineformat;
 import ua.types;
 import ua.where;
 import ua.tablegen1;
-import ua.caller;
 import ua.insertgen1;
 
 void main() {

@@ -10,7 +10,7 @@ string genUpdate1(T,string placeHolder)() nothrow @trusted if(isUA!T) {
 	size_t cnt = 0;
 
 	bool first = false;
-	foreach(mem; __traits(allMembers, T)) {
+	/*foreach(mem; __traits(allMembers, T)) {
 		static if(isUA!(T, mem) && ) {
 			UA ua = getUA!(T, mem);
 			if(mem in namesInUse || ua.isPrimaryKey) {
@@ -23,5 +23,6 @@ string genUpdate1(T,string placeHolder)() nothrow @trusted if(isUA!T) {
 			}
 		}
 	}
-
+	*/
+	return ret;
 }
