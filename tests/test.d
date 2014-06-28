@@ -19,7 +19,9 @@ import ua.updategen1;
 void main() {
 	@UA struct Foo {
 		@UA string a;
-		@UA(PrimaryKey, "someothername") int b;
+		@UA int b;
+		@UA(PrimaryKey, "k1") int c;
+		@UA(PrimaryKey, "k2") int d;
 	}
 
 	auto db = MySQL();
