@@ -48,7 +48,7 @@ string genUpdate1(T,P)() @trusted if(isUA!T) {
 		static if(isUA!(T, mem)) {
 			UA ua = getUA!(T, mem);
 			if(mem !in namesInUse && ua.isPrimaryKey) {
-				ret ~= first ? ", " : "";
+				ret ~= first ? " AND " : "";
 				ret ~= ua.rename;
 				ret ~= " = ";
 				ret ~= placeholdGen.front.to!string();
