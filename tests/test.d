@@ -14,6 +14,7 @@ import ua.types;
 import ua.where;
 import ua.tablegen1;
 import ua.insertgen1;
+import ua.updategen1;
 
 void main() {
 	@UA struct Foo {
@@ -45,4 +46,10 @@ void main() {
 	writeln(i);
 	enum i2 = genInsert1!(Foo,PostgreSQLPlaceholderGen)();
 	writeln(i2);
+
+	enum u1 = genUpdate1!(Foo,MySQLPlaceholderGen)();
+	writeln(u1);
+
+	enum u2 = genUpdate1!(Foo,PostgreSQLPlaceholderGen)();
+	writeln(u2);
 }
