@@ -1,6 +1,7 @@
 module ua.mysql;
 
 import ua.uda;
+import ua.mysqlcbinding;
 
 struct MySQLRsltType(T) {
 	T front() @trusted {
