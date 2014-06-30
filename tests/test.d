@@ -17,6 +17,7 @@ import ua.insertgen1;
 import ua.updategen1;
 import ua.deletegen1;
 import ua.selectgen1;
+import ua.mysql;
 
 void main() {
 	@UA struct Foo {
@@ -26,7 +27,7 @@ void main() {
 		@UA(PrimaryKey, "k2") int d;
 	}
 
-	auto db = MySQL();
+	auto db = MySQL("localhost", "root", "mariadbpwd");
 
 	auto w1 = where!(Foo, "a")(Op.EQ, "whatever");
 	auto w2 = where!(Foo, "b", Op.GE)(10);
@@ -37,11 +38,11 @@ void main() {
 
 	auto g1 = GroupBy("a");
 
-	foreach(it; db.select!Foo(w1, w2)) {
+	/*foreach(it; db.select!Foo(w1, w2)) {
 	}
 
 	foreach(it; db.select!Foo(wheres)) {
-	}
+	}*/
 
 	enum ct1 = genCreateTable1!(Foo, mysqlType)();
 	writeln(ct1);
@@ -50,6 +51,9 @@ void main() {
 	writeln(i);
 	enum i2 = genInsert1!(Foo,PostgreSQLPlaceholderGen)();
 	writeln(i2);
+
+	Foo f;
+	db.insert(f);
 
 	enum u1 = genUpdate1!(Foo,MySQLPlaceholderGen)();
 	writeln(u1);

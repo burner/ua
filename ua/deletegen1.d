@@ -25,5 +25,5 @@ string genDelete(T,P)() @trusted if(isUA!T) {
 		}
 	}
 
-	return ret ~ ";";
+	return ret ~ ";\0";
 }

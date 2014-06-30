@@ -59,6 +59,6 @@ string genUpdate1(T,P)() @trusted if(isUA!T) {
 		}
 	}
 
-	ret ~= ";";
+	ret ~= ";\0";
 	return ret;
 }

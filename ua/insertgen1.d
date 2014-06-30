@@ -37,7 +37,7 @@ string genInsert1(T,P)() nothrow @trusted if(isUA!T) {
 	} catch(Exception e) {
 		assert(false, e.toString());
 	}
-	ret ~= ");";
+	ret ~= ");\0";
 
 	return ret;
 }

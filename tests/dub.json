@@ -7,7 +7,7 @@
 		"dependencies": {
 		},
 		"sourceFiles" : ["test.d"],
-		"importPaths" : ["../ua/",".."],
+		"importPaths" : ["../ua/","..","../../std_allocator/source/"],
 		"targetType": "executable",
-		"lflags" : ["../libuniformaccess.a"]
+		"lflags" : ["../libuniformaccess.a", "-lmysqlclient"]
 }

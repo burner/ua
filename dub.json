@@ -5,7 +5,10 @@
 		"homepage": "github.com/burner/ua",
 		"license": "LGPL-3.0",
 		"dependencies": {
+			"std_allocator" : { "version" : "~master", "path" :
+				"../std_allocator/" }
 		},
+		"importPaths" : ["../std_allocator/source/"],
 		"sourcePaths" : ["ua"],
 		"targetType": "library"
 }
