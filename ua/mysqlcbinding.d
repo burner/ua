@@ -1304,3 +1304,336 @@ int    STDCALL mysql_drop_db(MYSQL *mysql, const char *DB);
 #endif
 */
 immutable bool HAVE_MYSQL_REAL_CONNECT = true;
+
+enum MySQLErrnos {
+	ERROR_FIRST=2000,
+	UNKNOWN_ERROR=2000,
+	SOCKET_CREATE_ERROR=2001,
+	CONNECTION_ERROR=2002,
+	CONN_HOST_ERROR=2003,
+	IPSOCK_ERROR=2004,
+	UNKNOWN_HOST=2005,
+	SERVER_GONE_ERROR=2006,
+	VERSION_ERROR=2007,
+	OUT_OF_MEMORY=2008,
+	WRONG_HOST_INFO=2009,
+	LOCALHOST_CONNECTION=2010,
+	TCP_CONNECTION=2011,
+	SERVER_HANDSHAKE_ERR=2012,
+	SERVER_LOST=2013,
+	COMMANDS_OUT_OF_SYNC=2014,
+	NAMEDPIPE_CONNECTION=2015,
+	NAMEDPIPEWAIT_ERROR=2016,
+	NAMEDPIPEOPEN_ERROR=2017,
+	NAMEDPIPESETSTATE_ERROR=2018,
+	CANT_READ_CHARSET=2019,
+	NET_PACKET_TOO_LARGE=2020,
+	EMBEDDED_CONNECTION=2021,
+	PROBE_SLAVE_STATUS=2022,
+	PROBE_SLAVE_HOSTS=2023,
+	PROBE_SLAVE_CONNECT=2024,
+	PROBE_MASTER_CONNECT=2025,
+	SSL_CONNECTION_ERROR=2026,
+	MALFORMED_PACKET=2027,
+	WRONG_LICENSE=2028,
+	NULL_POINTER=2029,
+	NO_PREPARE_STMT=2030,
+	PARAMS_NOT_BOUND=2031,
+	DATA_TRUNCATED=2032,
+	NO_PARAMETERS_EXISTS=2033,
+	INVALID_PARAMETER_NO=2034,
+	INVALID_BUFFER_USE=2035,
+	UNSUPPORTED_PARAM_TYPE=2036,
+	SHARED_MEMORY_CONNECTION=2037,
+	SHARED_MEMORY_CONNECT_REQUEST_ERROR=2038,
+	SHARED_MEMORY_CONNECT_ANSWER_ERROR=2039,
+	SHARED_MEMORY_CONNECT_FILE_MAP_ERROR=2040,
+	SHARED_MEMORY_CONNECT_MAP_ERROR=2041,
+	SHARED_MEMORY_FILE_MAP_ERROR=2042,
+	SHARED_MEMORY_MAP_ERROR=2043,
+	SHARED_MEMORY_EVENT_ERROR=2044,
+	SHARED_MEMORY_CONNECT_ABANDONED_ERROR=2045,
+	SHARED_MEMORY_CONNECT_SET_ERROR=2046,
+	CONN_UNKNOW_PROTOCOL=2047,
+	INVALID_CONN_HANDLE=2048,
+	SECURE_AUTH=2049,
+	FETCH_CANCELED=2050,
+	NO_DATA=2051,
+	NO_STMT_METADATA=2052,
+	NO_RESULT_SET=2053,
+	NOT_IMPLEMENTED=2054,
+	SERVER_LOST_EXTENDED=2055,
+	STMT_CLOSED=2056,
+	NEW_STMT_METADATA=2057,
+	ALREADY_CONNECTED=2058,
+	AUTH_PLUGIN_CANNOT_LOAD=2059,
+	ERROR_LAST=2059
+}
+
+private immutable MySQLExceptionConstructor = q{
+	this(string msg = "", string file = __FILE__, ulong line = __LINE__) {
+		super(msg, file, line);
+	}
+};
+
+class MySQLException : Exception {
+	mixin(MySQLExceptionConstructor);
+}
+
+/** Is thrown if the MYSQL pointer points to null */
+class MySQLIsNullException : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+/** Is thrown if the mysql_init fails */
+class MySQLInitException : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_ERROR_FIRST : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_UNKNOWN_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_SOCKET_CREATE_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_CONNECTION_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_CONN_HOST_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_IPSOCK_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_UNKNOWN_HOST : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_SERVER_GONE_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_VERSION_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_OUT_OF_MEMORY : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_WRONG_HOST_INFO : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_LOCALHOST_CONNECTION : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_TCP_CONNECTION : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_SERVER_HANDSHAKE_ERR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_SERVER_LOST : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_COMMANDS_OUT_OF_SYNC : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_NAMEDPIPE_CONNECTION : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_NAMEDPIPEWAIT_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_NAMEDPIPEOPEN_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_NAMEDPIPESETSTATE_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_CANT_READ_CHARSET : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_NET_PACKET_TOO_LARGE : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_EMBEDDED_CONNECTION : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_PROBE_SLAVE_STATUS : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_PROBE_SLAVE_HOSTS : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_PROBE_SLAVE_CONNECT : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_PROBE_MASTER_CONNECT : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_SSL_CONNECTION_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_MALFORMED_PACKET : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_WRONG_LICENSE : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_NULL_POINTER : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_NO_PREPARE_STMT : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_PARAMS_NOT_BOUND : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_DATA_TRUNCATED : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_NO_PARAMETERS_EXISTS : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_INVALID_PARAMETER_NO : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_INVALID_BUFFER_USE : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_UNSUPPORTED_PARAM_TYPE : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_SHARED_MEMORY_CONNECTION : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_SHARED_MEMORY_CONNECT_REQUEST_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_SHARED_MEMORY_CONNECT_ANSWER_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_SHARED_MEMORY_CONNECT_FILE_MAP_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_SHARED_MEMORY_CONNECT_MAP_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_SHARED_MEMORY_FILE_MAP_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_SHARED_MEMORY_MAP_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_SHARED_MEMORY_EVENT_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_SHARED_MEMORY_CONNECT_ABANDONED_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_SHARED_MEMORY_CONNECT_SET_ERROR : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_CONN_UNKNOW_PROTOCOL : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_INVALID_CONN_HANDLE : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_SECURE_AUTH : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_FETCH_CANCELED : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_NO_DATA : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_NO_STMT_METADATA : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_NO_RESULT_SET : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_NOT_IMPLEMENTED : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_SERVER_LOST_EXTENDED : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_STMT_CLOSED : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_NEW_STMT_METADATA : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_ALREADY_CONNECTED : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_AUTH_PLUGIN_CANNOT_LOAD : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
+
+class MySQL_ERROR_LAST : MySQLException {
+	mixin(MySQLExceptionConstructor);
+}
